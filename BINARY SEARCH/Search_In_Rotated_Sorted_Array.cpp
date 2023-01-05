@@ -27,7 +27,7 @@ int binarysearch(vector<int>& arr, int s, int e, int k) {
             return mid;
 
         if(arr[mid] < k)
-            low = mid+1;
+            low = mid + 1;
 
         else
             high = mid;
