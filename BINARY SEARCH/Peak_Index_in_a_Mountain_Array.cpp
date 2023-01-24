@@ -19,6 +19,28 @@ int peakIndex(vector<int>& arr, int n) {
     return start;
 }
 
+/*
+int peakIndex(vector<int>& arr, int n) {
+        int s = 0, e = n - 1, ans = -1;
+
+        while(s <= e){
+            int mid = s + (e - s) / 2;
+
+            if(arr[mid] > arr[mid + 1] && arr[mid] > arr[mid - 1]){
+                ans = mid;
+                return ans;
+            }
+
+            if(arr[mid] > arr[mid - 1] && arr[mid] < arr[mid + 1])
+                s = mid;
+            
+            else
+                e = mid;
+        }
+
+        return -1;
+    }
+*/
 
 int main(){
 

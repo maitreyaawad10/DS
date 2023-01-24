@@ -2,55 +2,65 @@
 
 using namespace std;
 
-int getPivot(vector<int>& arr, int n){
+int getPivot(vector<int>& nums, int n){
     int s = 0, e = n - 1;
+    
+    if(nums[0] <= nums[n - 1])
+        return 0;
 
     while(s < e){
         int mid = s + ((e - s) / 2);
 
-        if(arr[mid] >= arr[0])
+        if(nums[mid] >= nums[0])
             s = mid + 1;
+        
         else
             e = mid;
     }
-
-    return s;   // return e - will also work
+    
+    return s;
 }
 
-int binarysearch(vector<int>& arr, int s, int e, int k) {
+int binarySearch(vector<int>& nums, int target, int s, int e){
     int low = s, high = e;
 
+    if(nums.size() == 1 && nums[0] == target)
+        return 0;
+
     while(low <= high){
-        int mid = low + ((high - low) / 2);
+        int mid = low + (high - low) / 2;
 
-        if(arr[mid] == k)
+        if(nums[mid] == target)
             return mid;
-
-        if(arr[mid] < k)
+        
+        if(nums[mid] < target)
             low = mid + 1;
-
+        
         else
-            high = mid;
+            high = mid - 1;
     }
 
     return -1;
 }
 
-int findPosition(vector<int>& arr, int n, int k)
-{   
-    int n, k = 2;
-    vector<int> arr;
-    
-    int pivot = getPivot(arr, n);
 
-    if(k >= pivot && k <= arr[n - 1])
-        return binarysearch(arr, pivot, n - 1, k);
-    else    
-        return binarysearch(arr, 0, pivot - 1, k);
+int search(vector<int>& nums, int target) {
+    int n = nums.size();
+    int pivot = getPivot(nums, n);
+
+    if(target <= nums[n - 1] && target >= nums[pivot])
+        return binarySearch(nums, target, pivot, n - 1);
+
+    else
+        return binarySearch(nums, target, 0, pivot - 1);
+    
 }
 
 int main(){
+    int n = 1, k = 1;
+    vector<int> arr = {1};
 
+    cout << search(arr, k) << endl;
 
     return 0;
 }

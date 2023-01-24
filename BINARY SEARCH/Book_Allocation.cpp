@@ -35,6 +35,9 @@ bool isPossible(vector<int> arr, int n, int m, int mid){
 int allocateBooks(vector<int> arr, int n, int m) {
     int s = 0, e = sumVec(arr), ans = -1;
     
+    if(m > n)
+        return -1;
+
     while(s <= e){
         int mid = s + ((e - s) / 2);
 
