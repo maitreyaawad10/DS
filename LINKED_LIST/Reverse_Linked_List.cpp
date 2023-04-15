@@ -33,17 +33,60 @@ ListNode* reverseList(ListNode* head) {
     return head;
 }
 
+// USING ITERATION
 // OPTIMAL APPROACH, TC : O(N), SC : O(1)
 ListNode* reverseList(ListNode* head) {
-    ListNode* prev = NULL;
-    ListNode* next = head;
+    ListNode* currentNode = NULL;
+    ListNode* previousNode = NULL;
 
     while(head != NULL){
-        next = head -> next;
-        head -> next = prev;
-        prev = head;
-        head = next;
+        currentNode = head;
+        head = head -> next;
+        currentNode -> next = previousNode;
+        previousNode = currentNode;
     }
 
-    return prev;
+    return currentNode;
+}
+
+
+// USING RECURSION
+// OPTIMAL APPROACH, TC : O(N), SC : O(1)
+ListNode* reverse(ListNode* head){
+    if(head == NULL || head -> next == NULL){
+        return head;
+    }
+
+    ListNode* newHead = reverse(head -> next);
+
+    head -> next -> next = head;
+    head -> next = NULL;
+
+    return newHead;
+}
+
+ListNode* reverseList(ListNode* head) {
+    return reverse(head);
+}
+
+
+// USING RECURSION
+// OPTIMAL APPROACH, TC : O(N), SC : O(1)
+ListNode* reverse(ListNode* head, ListNode* currentNode, ListNode* previousNode){
+    if(head == NULL)
+        return currentNode;
+
+    currentNode = head;
+    head = head -> next;
+    currentNode -> next = previousNode;
+    previousNode = currentNode;
+
+    return reverse(head, currentNode, previousNode);
+}
+
+ListNode* reverseList(ListNode* head) {
+    ListNode* currentNode = head;
+    ListNode* previousNode = NULL;
+
+    return reverse(head, currentNode, previousNode);
 }
