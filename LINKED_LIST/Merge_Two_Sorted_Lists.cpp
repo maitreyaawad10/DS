@@ -92,11 +92,7 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
     if(list2 == NULL)
         return list1;
 
-    // CHECKING IF 1ST ELEMENT OF L1 IS <= FIRST ELEMENT OF L2
-    if((list1 -> val) <= (list2 -> val))
-        return solve(list1, list2);
-    else
-        return solve(list2, list1);
+    return solve(list1, list2);
 }
 
 // OPTIMAL APPROACH, TC : O(N1 + N2), SC : O(1)

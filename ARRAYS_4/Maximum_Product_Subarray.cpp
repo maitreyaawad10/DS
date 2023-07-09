@@ -3,23 +3,20 @@
 using namespace std;
 
 // OPTIMAL APPROACH, TC : O(N), SC : O(1)
-int maxProduct(vector<int>& nums) {
-    int ans = nums[0], n = nums.size();
-    int currMax = 1, currMin = 1;
+int subarrayWithMaxProduct(vector<int> &arr){
+	int pf = 1, sf = 1;
+	int maxProduct = INT_MIN;
+	int n = arr.size();
 
-    for(int i = 0; i < n; ++i){
-        if(nums[i] == 0){
-            ans = max(ans, nums[i]);
-            currMax = 1, currMin = 1;
-            continue;
-        }
-        
-        int temp = currMax * nums[i];
-        currMax = max(currMax * nums[i], max(currMin * nums[i], nums[i]));
-        currMin = min(temp, min(currMin * nums[i], nums[i]));
+	for(int i = 0; i < n; ++i){
+		if(pf == 0)	pf = 1;
+		if(sf == 0) sf = 1;
 
-        ans = max(ans, max(currMax, currMin));
-    }
+		pf = pf * arr[i];
+		sf = sf * arr[n - i - 1];
 
-    return ans;
+		maxProduct = max(maxProduct, max(pf, sf));
+	}
+
+	return maxProduct;
 }
