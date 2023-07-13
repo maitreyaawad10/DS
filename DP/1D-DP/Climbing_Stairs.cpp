@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// APPROACH 4: OPTIMAL, DP, TABULATION (space optimized)
+// APPROACH 4: OPTIMAL, DP, (space optimized)
 // TC: O(N)
 // SC: O(1)
 int climbStairs(int n)

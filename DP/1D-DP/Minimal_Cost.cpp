@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// APPROACH 3: DP, TABULATION
+// APPROACH 3: DP, TABULATION, OPTIMAL
 // TC: O(N * K)
 // SC: O(N)
 int minimizeCost(int n, int k, vector<int> &height)
