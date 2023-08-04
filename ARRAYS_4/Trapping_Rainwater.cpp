@@ -2,6 +2,39 @@
 
 using namespace std;
 
+// OPTIMAL APPROACH, TC : O(N), SC : O(1)
+int trap(vector<int>& height) {
+    int n = height.size();
+
+    int maxL = height[0];
+    int maxR = height[n - 1];
+
+    int left = 0;
+    int right = n - 1;
+
+    int trappedWater = 0;
+
+    while (left < right) {
+        if (maxL <= maxR) {
+            int add = maxL - height[left];
+            left++;
+
+            trappedWater += (add < 0 ? 0 : add);
+
+            maxL = max(maxL, height[left]);
+        } else {
+            int add = maxR - height[right];
+            right--;
+
+            trappedWater += (add < 0 ? 0 : add);
+
+            maxR = max(maxR, height[right]);
+        }
+    }
+
+    return trappedWater;
+}
+
 // BETTER APPROACH, TC : O(N), SC : O(N)
 int trap(vector<int>& height) {
     int n = height.size();

@@ -2,64 +2,80 @@
 
 using namespace std;
 
-vector<int> nextSmallerElement(vector<int> &arr, int n)
-{
-    vector<int> ans(n);
+vector<int> findNextSmaller(vector<int>& heights, int n) {
     stack<int> st;
+    vector<int> ans(n);
 
-    st.push(-1);
-
-    for(int i = n - 1; i >= 0; --i){
-        while(st.top() != -1 && arr[st.top()] >= arr[i]){
+    for (int i = n - 1; i >= 0; --i) {
+        while (!st.empty() && heights[st.top()] >= heights[i]) {
             st.pop();
         }
-            
-        ans[i] = st.top();
+
+        if (st.empty())
+            ans[i] = -1;
+        else
+            ans[i] = st.top();
+
         st.push(i);
     }
 
     return ans;
 }
 
-vector<int> prevSmallerElement(vector<int> &arr, int n)
-{
-    vector<int> ans(n);
+vector<int> findPrevSmaller(vector<int>& heights, int n) {
     stack<int> st;
+    vector<int> ans(n);
 
-    st.push(-1);
-
-    for(int i =0; i < n; ++i){
-        while(st.top() != -1 && arr[st.top()] >= arr[i]){
+    for (int i = 0; i < n; ++i) {
+        while (!st.empty() && heights[st.top()] >= heights[i]) {
             st.pop();
         }
-            
-        ans[i] = st.top();
+
+        if (st.empty())
+            ans[i] = -1;
+        else
+            ans[i] = st.top();
+
         st.push(i);
     }
 
     return ans;
 }
+
 
 int largestRectangleArea(vector<int>& heights) {
     int n = heights.size();
 
     vector<int> next(n);
-    next = nextSmallerElement(heights, n);
+    next = findNextSmaller(heights, n);
 
     vector<int> prev(n);
-    prev = prevSmallerElement(heights, n);
+    prev = findPrevSmaller(heights, n);
 
     int area = INT_MIN;
 
-    for(int i = 0; i < n; ++i){
+    // for (auto value: next)
+    //     cout << value << " ";
+    // cout << endl;
+
+    // for (auto value: prev)
+    //     cout << value << " ";
+    // cout << endl;
+
+    for (int i = 0; i < n; ++i) {
+        int nextSmallerIndex = next[i];
+
+        if (nextSmallerIndex == -1)
+            nextSmallerIndex = n;
+
+        int prevSmallerIndex = prev[i];
+
         int length = heights[i];
-        if(next[i] == -1){
-            next[i] = n;
-        }
-        
-        int breadth = next[i] - prev[i] - 1;
+
+        int breadth = nextSmallerIndex - prevSmallerIndex - 1;
 
         int newArea = length * breadth;
+
         area = max(area, newArea);
     }
 
